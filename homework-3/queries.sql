@@ -16,14 +16,14 @@ SELECT product_name, units_in_stock, contact_name, phone
 FROM products
 INNER JOIN suppliers USING(supplier_id)
 INNER JOIN categories USING(category_id)
-WHERE discontinued=0 AND reorder_level>=25 AND (category_name = 'Dairy Products' OR category_name = 'Condiments')
+WHERE discontinued=0 AND units_in_stock>=25 AND (category_name = 'Dairy Products' OR category_name = 'Condiments')
 ORDER BY units_in_stock;
 
 
 -- 3. Список компаний заказчиков (company_name из табл customers), не сделавших ни одного заказа
 SELECT company_name
-FROM orders
-INNER JOIN customers USING(customer_id)
+FROM  customers
+INNER JOIN orders USING(customer_id)
 WHERE company_name IS NULL;
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
